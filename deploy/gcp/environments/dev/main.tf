@@ -260,6 +260,7 @@ resource "google_cloudbuild_trigger" "launch_hpc_toolkit_hpc_cluster_small_pub_s
     _BILLING_ACCOUNT = var.billing_account
     _ORGANIZATION_ID = var.org_id
     _FOLDER_ID       = var.folder_id
+    _REGION          = var.region
   }
 }
 
