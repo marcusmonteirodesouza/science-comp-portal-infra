@@ -1,8 +1,14 @@
 steps:
   - name: google/cloud-sdk:alpine
-    id: Clone repo
+    id: Update git submodules
     entrypoint: git
-    args: ['clone', 'https://github.com/marcusmonteirodesouza/hpc-toolkit.git']
+    args: 
+      [
+        'submodule', 
+        'update', 
+        '--init', 
+        '--recursive'
+      ]
   - name: "${_REGION}-docker.pkg.dev/${PROJECT_ID}/hpc-toolkit/hpc-toolkit"
     args:
       [

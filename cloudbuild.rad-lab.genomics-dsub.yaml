@@ -1,8 +1,14 @@
 steps:
   - name: google/cloud-sdk:alpine
-    id: Clone repo
+    id: Update git submodules
     entrypoint: git
-    args: ['clone', 'https://github.com/marcusmonteirodesouza/rad-lab.git']
+    args: 
+      [
+        'submodule', 
+        'update', 
+        '--init', 
+        '--recursive'
+      ]
   - name: "gcr.io/${PROJECT_ID}/terraform"
     args:
       [
