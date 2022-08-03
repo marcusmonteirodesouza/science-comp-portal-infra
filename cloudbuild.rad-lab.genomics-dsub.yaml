@@ -1,0 +1,20 @@
+steps:
+  - name: google/cloud-sdk:alpine
+    id: Clone repo
+    entrypoint: git
+    args: ['clone', 'https://github.com/marcusmonteirodesouza/rad-lab.git']
+  - name: "gcr.io/${PROJECT_ID}/terraform"
+    args:
+      [
+        "-chdir=rad-lab/modules/genomics_dsub",
+        "init",
+        "-backend-config=bucket=${_STORAGE_BUCKET}",
+        "-backend-config=prefix=${_REQUEST_ID}",
+      ]
+  - name: "gcr.io/${PROJECT_ID}/terraform"
+    args: ["-chdir=rad-lab/modules/genomics_dsub", "apply", "-auto-approve"]
+    env:
+      - "TF_VAR_billing_account_id=${_BILLING_ACCOUNT}"
+      - "TF_VAR_organization_id=${_ORGANIZATION_ID}"
+      - "TF_VAR_folder_id=${_FOLDER_ID}"
+timeout: 2700s

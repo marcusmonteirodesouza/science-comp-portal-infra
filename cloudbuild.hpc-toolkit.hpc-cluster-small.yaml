@@ -1,0 +1,30 @@
+steps:
+  - name: google/cloud-sdk:alpine
+    id: Clone repo
+    entrypoint: git
+    args: ['clone', 'https://github.com/marcusmonteirodesouza/hpc-toolkit.git']
+  - name: "${_REGION}-docker.pkg.dev/${PROJECT_ID}/hpc-toolkit/hpc-toolkit"
+    args:
+      [
+        "create",
+        "hpc-toolkit/blueprints/hpc-cluster-small.yaml",
+        "--vars",
+        "billing_account=${_BILLING_ACCOUNT},org_id=${_ORGANIZATION_ID},project_id=hpc-cluster-small-${_REQUEST_ID},deployment_name={_REQUEST_ID},region=${_REGION}",
+        "--backend-config",
+        "bucket=${_STORAGE_BUCKET}"
+      ]
+  # - name: "gcr.io/${PROJECT_ID}/terraform"
+  #   args:
+  #     [
+  #       "-chdir=modules/data_science",
+  #       "init",
+  #       "-backend-config=bucket=${_STORAGE_BUCKET}",
+  #       "-backend-config=prefix=${_REQUEST_ID}",
+  #     ]
+  # - name: "gcr.io/${PROJECT_ID}/terraform"
+  #   args: ["-chdir=modules/data_science", "apply", "-auto-approve"]
+  #   env:
+  #     - "TF_VAR_billing_account_id=${_BILLING_ACCOUNT}"
+  #     - "TF_VAR_organization_id=${_ORGANIZATION_ID}"
+  #     - "TF_VAR_folder_id=${_FOLDER_ID}"
+timeout: 2700s
