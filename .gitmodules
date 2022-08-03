@@ -1,6 +1,3 @@
 [submodule "rad-lab"]
 	path = rad-lab
 	url = https://github.com/marcusmonteirodesouza/rad-lab.git
-[submodule "hpc-toolkit"]
-	path = hpc-toolkit
-	url = https://github.com/GoogleCloudPlatform/hpc-toolkit.git
