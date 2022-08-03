@@ -10,13 +10,14 @@ steps:
         '--recursive'
       ]
   - name: "${_REGION}-docker.pkg.dev/${PROJECT_ID}/hpc-toolkit/hpc-toolkit"
+    entrypoint: /ghpc-tmp/ghpc
     args:
       [
-        "create",
-        "hpc-toolkit/blueprints/hpc-cluster-small.yaml",
-        "--vars",
+        'create',
+        '/workspace/hpc-toolkit/blueprints/hpc-cluster-small.yaml',
+        '--vars',
         "billing_account=${_BILLING_ACCOUNT},org_id=${_ORGANIZATION_ID},project_id=hpc-cluster-small-${_REQUEST_ID},deployment_name={_REQUEST_ID},region=${_REGION}",
-        "--backend-config",
+        '--backend-config',
         "bucket=${_STORAGE_BUCKET}"
       ]
   # - name: "gcr.io/${PROJECT_ID}/terraform"
